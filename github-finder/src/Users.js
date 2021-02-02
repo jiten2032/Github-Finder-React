@@ -5,15 +5,32 @@ export class Users extends Component {
         data: []
     }
     handleKeyup = (e) => {
-        axios.get(`https://api.github.com/users/${e.target.value}`)
-            .then(response => {
-                // console.log(response);
+        let inputvalue = e.target.value;
+        if (inputvalue !== "") {
+            axios.get(`https://api.github.com/users/${inputvalue}`)
+                .then(response => {
 
-                this.setState({
-                    data: response.data
+
+                    this.setState({
+                        data: response.data
+                    })
+
+
+
+
                 })
 
+
+
+
+        } else {
+            this.setState({
+                data: ""
             })
+        }
+
+
+
     }
     render() {
 
@@ -22,7 +39,7 @@ export class Users extends Component {
 
             <div className="container d-flex justify-content-evenly flex-wrap mt-5 ">
                 <div className="mt-3 ms-2">
-                    <img src={data.avatar_url} className="img-fluid d-block" alt="myimg" />
+                    <img src={data.avatar_url} className="img-fluid d-block" alt="" />
 
                     <a href={data.html_url} target="" className="btn btn-primary btn-lg btn-block mx-auto d-block mt-3 mb-3 ">
                         View Profile
@@ -52,10 +69,9 @@ export class Users extends Component {
         ) : (
 
                 <div className="container alert alert-danger mt-3 text-center" role="alert">
-                    <h4 className="alert-heading">Oh Sorry!</h4>
-                    <p>Entered Username not Available</p>
-                    <hr />
-                    <p className="mb-0">Please Enter a Valid Username.</p>
+                    <h4 className="alert-heading">Please type your username!</h4>
+
+
                 </div>
 
             );
